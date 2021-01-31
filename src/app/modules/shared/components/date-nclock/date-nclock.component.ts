@@ -17,13 +17,14 @@ export class DateNClockComponent implements OnInit {
   ngOnInit(): void {
     this.date = moment();
     this.getCurrentDate();
+    setInterval(() => {
+      this.getCurrentDate();
+    }, 1000); // set it every one seconds
   }
 
   getCurrentDate(): any {
-    setInterval(() => {
-      this.hour = moment().format('HH');
-      this.min = moment().format('mm');
-      this.sec = moment().format('ss');
-    }, 1000); // set it every one seconds
+    this.hour = moment().format('HH');
+    this.min = moment().format('mm');
+    this.sec = moment().format('ss');
   }
 }

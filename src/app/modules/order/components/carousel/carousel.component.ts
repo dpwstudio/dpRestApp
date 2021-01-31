@@ -13,13 +13,16 @@ export class CarouselComponent implements OnInit, OnDestroy {
   orders: any;
   date: string;
   interval: any;
+  showAlert = false;
+  totalOrder = 0;
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getOrders();
     this.interval = setInterval(() => {
-      this.getOrders();
+      const result = this.getOrders();
+      console.log('result', result);
     }, 5000);
   }
 
@@ -37,6 +40,11 @@ export class CarouselComponent implements OnInit, OnDestroy {
       .subscribe((orders: { orders: string[] }) => {
         console.log('orders', orders.orders);
         this.orders = orders.orders.reverse();
+        this.totalOrder = this.orders.length;
+        console.log('total', this.totalOrder, '<', this.orders.length);
+        if (this.totalOrder < this.orders.length) {
+          this.showAlert = true;
+        }
       });
   }
 

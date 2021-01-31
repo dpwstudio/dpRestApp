@@ -73,7 +73,7 @@
       </div>
       <div class="modal-body">
         <p>
-          Veuillez confirmer pour passer la commande en statut <span class="badge badge-success ml-1"> Traitée </span>
+          Etes-vous sur de vouloir confirmer le traitement de la commande ?
         </p>
       </div>
       <div class="modal-footer">
@@ -85,3 +85,9 @@
     </div>
   </div>
 </div>
+<alert class="alert-with-icon animate__animated animate__fadeInDown" [type]="'success alert-with-icon'" [dismissible]="true" *ngIf="showAlert">
+  <span class="tim-icons icon-bell-55" data-notify="icon"> </span>
+  <span>
+    <b> Nouvelle commande ! </b> <br> Une nouvelle commande vient d'arriver.
+  </span>
+</alert>

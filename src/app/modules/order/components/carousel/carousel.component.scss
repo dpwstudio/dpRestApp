@@ -78,5 +78,19 @@
         }
       }
     }
+
+    .card-footer {
+      .btn {
+        padding: 11px 20px;
+      }
+    }
   }
+}
+
+.alert-with-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  transform: translateX(-20%);
 }
