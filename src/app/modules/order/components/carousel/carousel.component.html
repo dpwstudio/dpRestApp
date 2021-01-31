@@ -1,8 +1,7 @@
 <div class="section section-basic" id="basic-elements">
   <img class="path" src="assets/img/path1.png" />
   <app-date-nclock></app-date-nclock>
-  <h2 class="title mb-4 animate__animated animate__fadeInDown">{{date}}</h2>
-  <h1 class="title mb-4 animate__animated animate__fadeInDown">Commande en attente</h1>
+  <h1 class="title mb-4 animate__animated animate__fadeInDown text-white">Commande en attente</h1>
   <div class="container">
     <div class="d-flex">
       <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let order of orders">
@@ -22,7 +21,7 @@
             </div>
           </div>
           <div class="card-footer text-center d-flex justify-content-between">
-            <button class="btn btn-danger" data-target="#myModal1" (click)="myModal1.show()">
+            <button class="btn btn-neutral text-warning" data-target="#myModal1" (click)="myModal1.show()">
               Coordonnées
             </button>
             <button class="btn btn-success" data-target="#myModal" (click)="myModal.show()">

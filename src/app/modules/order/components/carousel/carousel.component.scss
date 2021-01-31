@@ -11,29 +11,32 @@
     text-align: center;
     margin-top: 0 !important;
   }
+
   h2.title {
     text-align: center;
     margin-bottom: 0 !important;
   }
 
-  .container{
+  .container {
     width: 100%;
-    overflow-x: scroll;
+    height: 56vh;
+    overflow: scroll;
     padding-top: 5em;
   }
 
   .card {
     z-index: 1;
-    background: linear-gradient(to bottom left, #ff8d72, #ff6491, #ff8d72);
+    background: linear-gradient(to bottom left, #ff8c15, #ff6c00, #ff8c15);
     min-height: 400px;
     box-shadow: none;
+
     .card-header {
       padding: 0 15px 20px;
       background: white;
       position: absolute;
       top: -60px;
-		left: 50%;
-		transform: translateX(-50%);
+      left: 50%;
+      transform: translateX(-50%);
       width: 120px;
       height: 120px;
       background-color: #ffffff;
@@ -44,7 +47,7 @@
       h1,
       h6 {
         margin: 0;
-        color: #ff698d;
+        color: #ff6c00;
       }
     }
 

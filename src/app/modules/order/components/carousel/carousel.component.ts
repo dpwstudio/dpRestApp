@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { OrderService } from 'src/app/modules/shared/services/order/order.service';
@@ -9,21 +9,24 @@ import * as moment from 'moment';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss']
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnDestroy {
   orders: any;
   date: string;
+  interval: any;
+
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
-    // this.date = moment().format('MMMM Do YYYY, h:mm:ss a');
     this.getOrders();
-    this.getCurrentDate();
+    this.interval = setInterval(() => {
+      this.getOrders();
+    }, 5000);
   }
 
-  getCurrentDate(): any {
-    setInterval(() => {
-      this.date = moment().format('DD/MM/YYYY hh:mm:ss');
-    }, 1000); // set it every one seconds
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   getOrders(): void {

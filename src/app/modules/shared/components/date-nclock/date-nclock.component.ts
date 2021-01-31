@@ -7,16 +7,23 @@ import * as moment from 'moment';
   styleUrls: ['./date-nclock.component.scss']
 })
 export class DateNClockComponent implements OnInit {
-  date: string;
+  date: moment.Moment;
+  hour: string;
+  min: string;
+  sec: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.date = moment();
+    this.getCurrentDate();
   }
 
   getCurrentDate(): any {
     setInterval(() => {
-      this.date = moment().format('DD/MM/YYYY hh:mm:ss');
+      this.hour = moment().format('HH');
+      this.min = moment().format('mm');
+      this.sec = moment().format('ss');
     }, 1000); // set it every one seconds
   }
 }
