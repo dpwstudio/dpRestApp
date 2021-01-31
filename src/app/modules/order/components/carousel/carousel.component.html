@@ -1,0 +1,88 @@
+<div class="section section-basic" id="basic-elements">
+  <img class="path" src="assets/img/path1.png" />
+  <app-date-nclock></app-date-nclock>
+  <h2 class="title mb-4 animate__animated animate__fadeInDown">{{date}}</h2>
+  <h1 class="title mb-4 animate__animated animate__fadeInDown">Commande en attente</h1>
+  <div class="container">
+    <div class="d-flex">
+      <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let order of orders">
+        <div class="card">
+          <div class="card-header d-flex justify-content-center flex-column text-center pt-4">
+            <h6 class="mb-2">Commande</h6>
+            <h1 style="font-weight: bold;">{{order.id}}</h1>
+          </div>
+          <div class="card-body text-left">
+            <div class="product-detail d-flex align-items-center justify-content-between"
+              *ngFor="let detail of order.associations.order_rows">
+              <div class="d-flex flex-column">
+                <h6>{{detail.product_reference}}</h6>
+                <h3>{{detail.product_name}}</h3>
+              </div>
+              <h4><small>x</small>{{detail.product_quantity}}</h4>
+            </div>
+          </div>
+          <div class="card-footer text-center d-flex justify-content-between">
+            <button class="btn btn-danger" data-target="#myModal1" (click)="myModal1.show()">
+              Coordonnées
+            </button>
+            <button class="btn btn-success" data-target="#myModal" (click)="myModal.show()">
+              Traité
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div aria-hidden="true" aria-labelledby="myModalLabel" bsModal class="modal fade modal-mini modal-black"
+  #myModal1="bs-modal" id="myModal1" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button aria-hidden="true" class="close" data-dismiss="modal" (click)="myModal1.hide()" type="button">
+          <i class="tim-icons icon-simple-remove text-white"> </i>
+        </button>
+        <div class="modal-profile">
+          <i class="tim-icons icon-single-02 text-warning"> </i>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center mb-3">Sonia GACEM</h4>
+        <h6><i class="tim-icons icon-mobile text-warning mr-2"></i> +33686707471</h6>
+        <h6><i class="tim-icons icon-email-85 text-warning mr-2"></i> ngacem78@gmail.com</h6>
+        <h6>70 avenue de l'europe - Interphone Mouhoun</h6>
+        <h6>78140 - VELIZY VILLACOUBLAY</h6>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button class="btn btn-link btn-neutral" data-dismiss="modal" type="button" (click)="myModal1.hide()">
+          Fermer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="myModalLabel" bsModal class="modal fade" #myModal="bs-modal" id="myModal"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" (click)="myModal.hide()">
+          <i class="tim-icons icon-simple-remove"> </i>
+        </button>
+        <h4 class="title title-up">Demande de confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Veuillez confirmer pour passer la commande en statut <span class="badge badge-success ml-1"> Traitée </span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" type="button" (click)="myModal.hide()">
+          Annuler
+        </button>
+        <button class="btn btn-success" type="button">Je confirme</button>
+      </div>
+    </div>
+  </div>
+</div>

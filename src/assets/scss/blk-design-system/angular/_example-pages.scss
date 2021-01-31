@@ -1,0 +1,13 @@
+.index-page .squares {
+  @include linear-gradient($nemshop-states1, $nemshop-states2);
+}
+.register-page,
+.section.section-signup {
+  .squares,
+  .square {
+    @include linear-gradient($nemshop-states1, $nemshop-states2);
+  }
+}
+.footer {
+  border-top: 2px solid $danger;
+}
