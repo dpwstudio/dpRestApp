@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { throwError } from 'rxjs';
+import { interval, Subscription, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { OrderService } from 'src/app/modules/shared/services/order/order.service';
 import * as moment from 'moment';
@@ -12,40 +12,36 @@ import * as moment from 'moment';
 export class CarouselComponent implements OnInit, OnDestroy {
   orders: any;
   date: string;
-  interval: any;
+  private interval = interval(5000);
+  subscription: Subscription;
+  tmpTotalOrders: number;
   showAlert = false;
   totalOrder = 0;
 
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.getOrders();
-    this.interval = setInterval(() => {
-      const result = this.getOrders();
-      console.log('result', result);
-    }, 5000);
+    this.orderService.getOrders().subscribe((data: { orders: string[] }) => {
+      this.orders = data.orders.reverse();
+      this.tmpTotalOrders = data.orders.length;
+    });
+    this.refreshData();
   }
 
   ngOnDestroy(): void {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
+    this.subscription.unsubscribe();
   }
 
-  getOrders(): void {
-    this.orderService.getOrders()
-      .pipe(
-        catchError(error => throwError(error))
-      )
-      .subscribe((orders: { orders: string[] }) => {
-        console.log('orders', orders.orders);
-        this.orders = orders.orders.reverse();
-        this.totalOrder = this.orders.length;
-        console.log('total', this.totalOrder, '<', this.orders.length);
-        if (this.totalOrder < this.orders.length) {
+  refreshData(): any {
+    this.subscription = this.interval.subscribe(() => {
+      this.orderService.getOrders().subscribe((data: { orders: string[] }) => {
+        if (this.tmpTotalOrders < data.orders.length) {
+          this.tmpTotalOrders = data.orders.length;
+          this.orders = data.orders.reverse();
           this.showAlert = true;
         }
       });
+    });
   }
 
 }
