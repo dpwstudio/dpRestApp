@@ -1,0 +1,23 @@
+.table-responsive {
+  width: 100%;
+  height: 56vh;
+  overflow: scroll;
+}
+
+.table {
+
+  th {
+    position: sticky;
+    top: 0px;
+    background: #202251;
+  }
+
+  th,
+  td {
+    border: none;
+  }
+
+  tbody tr:nth-child(odd) {
+    background: #161941;
+  }
+}

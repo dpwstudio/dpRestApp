@@ -1,0 +1,36 @@
+<app-loading [isLoading]="isOrdersLoading()"></app-loading>
+<div class="section section-basic" id="basic-elements">
+  <img class="path" src="assets/img/path1.png" />
+  <app-date-nclock></app-date-nclock>
+  <div class="col-md-12 ml-auto col-xl-12 mr-auto">
+    <div class="mb-3">
+      <small class="text-uppercase font-weight-bold">
+        Suivi des commandes
+      </small>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <tabset class="nav-tabs-warning">
+          <tab>
+            <ng-template tabHeading>
+              <i class="tim-icons icon-time-alarm"> </i> En attente {{ordersPending?.length}}
+            </ng-template>
+            <app-table [orders]="ordersPending"></app-table>
+          </tab>
+          <tab>
+            <ng-template tabHeading>
+              <i class="tim-icons icon-delivery-fast"> </i> Livrée {{ordersDelivered?.length}}
+            </ng-template>
+            <app-table [orders]="ordersDelivered"></app-table>
+          </tab>
+          <tab>
+            <ng-template tabHeading>
+              <i class="tim-icons icon-money-coins"> </i> Remboursée {{ordersRefunded?.length}}
+            </ng-template>
+            <app-table [orders]="ordersRefunded"></app-table>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,17 +2,24 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Order } from '../../models/order';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class OrderService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  getOrders() {
-    return this.http.get(`
-      ${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=6210,100
-    `);
-  }
+	getLastOrders(): any {
+		return this.http.get(`
+			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=6210,100
+		`);
+	}
+
+	getOrders(): any {
+		return this.http.get(`
+			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=5000,2000
+		`);
+	}
 }

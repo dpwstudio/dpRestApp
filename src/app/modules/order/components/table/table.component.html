@@ -1,0 +1,59 @@
+<div class="table-responsive px-3">
+  <table class="table tablesorter  table-hover" id="">
+    <thead class="">
+      <tr>
+        <th class="text-center">N°</th>
+        <th class="text-center">Date</th>
+        <th>Référence</th>
+        <th>Nom</th>
+        <th class="text-center">Qté</th>
+        <th class="text-right">Prix unit. TTC</th>
+        <th class="text-right">Total unit. TTC</th>
+        <th class="text-right">Total commande TTC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of returnedArray">
+        <td class="text-center">
+          <span class="badge badge-warning">{{order.id}}</span>
+        </td>
+        <td class="text-center">
+          {{order.date_add | date: 'dd/MM/YYYY hh:mm'}}
+        </td>
+        <td>
+          <div *ngFor="let detail of order.associations.order_rows">
+            {{detail.product_reference}}
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let detail of order.associations.order_rows">
+            {{detail.product_name}}
+          </div>
+        </td>
+        <td class="text-center">
+          <div *ngFor="let detail of order.associations.order_rows">
+            {{detail.product_quantity}}
+          </div>
+        </td>
+        <td class="text-right">
+          <div *ngFor="let detail of order.associations.order_rows">
+            {{detail.unit_price_tax_incl | currency:'EUR':'symbol':'1.2-2':'fr' }}
+          </div>
+        </td>
+        <td class="text-right">
+          <div *ngFor="let detail of order.associations.order_rows">
+            {{detail.unit_price_tax_incl * detail.product_quantity | currency:'EUR':'symbol':'1.2-2':'fr' }}
+          </div>
+        </td>
+        <td class="text-center">
+          {{order.total_paid_tax_incl | currency:'EUR':'symbol':'1.2-2':'fr' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="overflow: scroll;">
+  <pagination class="pagination-warning pt-3" [boundaryLinks]="true"
+     [totalItems]="orders?.length" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+    firstText="&laquo;" lastText="&raquo;"></pagination>
+</div>

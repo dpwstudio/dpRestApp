@@ -1,7 +1,8 @@
 <div class="section section-basic" id="basic-elements">
   <img class="path" src="assets/img/path1.png" />
   <app-date-nclock></app-date-nclock>
-  <h1 class="title mb-4 animate__animated animate__fadeInDown text-white">Commande en attente</h1>
+  <h1 class="title mb-4 animate__animated animate__fadeInDown text-white">{{orders?.length}}
+    commande{{orders?.length > 1 ? 's' : ''}} en attente</h1>
   <div class="container">
     <div class="d-flex">
       <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let order of orders">
@@ -11,6 +12,7 @@
             <h1 style="font-weight: bold;">{{order.id}}</h1>
           </div>
           <div class="card-body text-left">
+            <h6 class="text-center mb-4">Créée le {{order.date_add | date: 'dd/MM/YYYY hh:mm'}}</h6>
             <div class="product-detail d-flex align-items-center justify-content-between"
               *ngFor="let detail of order.associations.order_rows">
               <div class="d-flex flex-column">
@@ -24,9 +26,10 @@
             <button class="btn btn-neutral text-warning" data-target="#myModal1" (click)="myModal1.show()">
               Coordonnées
             </button>
-            <button class="btn btn-success" data-target="#myModal" (click)="myModal.show()">
+            <a class="btn btn-success" target="_blank"
+              href="http://localhost:8888/nemshop/admin600kqh971/index.php?controller=AdminOrders&id_order={{order.id}}&vieworder">
               Traité
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -60,34 +63,21 @@
     </div>
   </div>
 </div>
-
-<div aria-hidden="true" aria-labelledby="myModalLabel" bsModal class="modal fade" #myModal="bs-modal" id="myModal"
-  role="dialog" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <button aria-hidden="true" class="close" data-dismiss="modal" type="button" (click)="myModal.hide()">
-          <i class="tim-icons icon-simple-remove"> </i>
-        </button>
-        <h4 class="title title-up">Demande de confirmation</h4>
-      </div>
-      <div class="modal-body">
-        <p>
-          Etes-vous sur de vouloir confirmer le traitement de la commande ?
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger" data-dismiss="modal" type="button" (click)="myModal.hide()">
-          Annuler
-        </button>
-        <button class="btn btn-success" type="button">Je confirme</button>
-      </div>
-    </div>
-  </div>
-</div>
-<alert class="alert-with-icon animate__animated animate__fadeInDown" [type]="'success alert-with-icon'" [dismissible]="true" *ngIf="showAlert">
+<alert class="alert-with-icon animate__animated animate__fadeInDown" [type]="'success alert-with-icon'"
+  [dismissible]="true" *ngIf="showAlert">
   <span class="tim-icons icon-bell-55" data-notify="icon"> </span>
   <span>
     <b> Nouvelle commande ! </b> <br> Une nouvelle commande vient d'arriver.
+  </span>
+</alert>
+<audio autoplay *ngIf="showAlert || showInfo">
+  <source src="assets/audio/message.wav" type="audio/wav">
+</audio>
+<alert class="alert-with-icon animate__animated animate__fadeInDown" [type]="'info alert-with-icon'"
+  [dismissible]="true" *ngIf="showInfo">
+  <span class="tim-icons icon-refresh-02" data-notify="icon"> </span>
+  <span>
+    <b> Actualisation des commandes </b> <br> Les commandes viennent d'être réactualisées car une commande a été
+    traitée.
   </span>
 </alert>

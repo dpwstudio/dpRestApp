@@ -19,27 +19,27 @@ import { SharedModule } from './modules/shared/shared.module';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule,
-    AppRoutingModule,
-    LayoutModule,
-    HomeModule,
-    OrderModule,
-    SharedModule,
-    AppRoutingModule,
-    CarouselModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'fr-FR' },
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		HttpClientModule,
+		RouterModule,
+		AppRoutingModule,
+		LayoutModule,
+		HomeModule,
+		OrderModule,
+		SharedModule,
+		AppRoutingModule,
+		CarouselModule,
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+	],
+	providers: [
+		{ provide: LOCALE_ID, useValue: 'fr-FR' },
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

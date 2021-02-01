@@ -21,32 +21,34 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { ThemeComponent } from './components/theme/theme.component';
 import { LayoutModule } from '../layout/layout.module';
 import { DateNClockComponent } from './components/date-nclock/date-nclock.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
-  declarations: [ThemeComponent, DateNClockComponent],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    SharedRoutingModule,
-    LayoutModule,
-    FormsModule,
-    RouterModule,
-    BsDropdownModule.forRoot(),
-    ProgressbarModule.forRoot(),
-    TooltipModule.forRoot(),
-    PopoverModule.forRoot(),
-    CollapseModule.forRoot(),
-    JwBootstrapSwitchNg2Module,
-    TabsModule.forRoot(),
-    PaginationModule.forRoot(),
-    AlertModule.forRoot(),
-    BsDatepickerModule.forRoot(),
-    CarouselModule.forRoot(),
-    ModalModule.forRoot(),
-  ],
-  exports: [
-    DateNClockComponent
-  ]
+	declarations: [ThemeComponent, DateNClockComponent, LoadingComponent],
+	imports: [
+		CommonModule,
+		BrowserModule,
+		SharedRoutingModule,
+		LayoutModule,
+		FormsModule,
+		RouterModule,
+		BsDropdownModule.forRoot(),
+		ProgressbarModule.forRoot(),
+		TooltipModule.forRoot(),
+		PopoverModule.forRoot(),
+		CollapseModule.forRoot(),
+		JwBootstrapSwitchNg2Module,
+		TabsModule.forRoot(),
+		PaginationModule.forRoot(),
+		AlertModule.forRoot(),
+		BsDatepickerModule.forRoot(),
+		CarouselModule.forRoot(),
+		ModalModule.forRoot(),
+	],
+	exports: [
+		DateNClockComponent,
+		LoadingComponent
+	]
 })
 export class SharedModule { }
