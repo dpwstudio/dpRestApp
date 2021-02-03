@@ -1,3 +1,10 @@
 .main {
-	min-height: 100vh;
+  .section {
+    min-height: 100vh;
+    overflow: inherit;
+
+    img.path {
+      position: fixed;
+    }
+  }
 }

@@ -16,6 +16,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrdersManagementComponent } from './pages/orders-management/orders-management.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { OrdersManagementComponent } from './pages/orders-management/orders-mana
 		ModalModule.forRoot(),
 		TabsModule.forRoot(),
 		PaginationModule.forRoot(),
+		NgxPaginationModule
 	]
 })
 export class OrderModule { }

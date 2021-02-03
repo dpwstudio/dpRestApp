@@ -10,6 +10,7 @@ import { OrderService } from 'src/app/modules/shared/services/order/order.servic
 })
 export class OrdersManagementComponent implements OnInit {
 	ordersPending: Order[];
+	ordersToTakeAway: Order[];
 	ordersDelivered: Order[];
 	ordersRefunded: Order[];
 	subscription: Subscription;
@@ -23,7 +24,8 @@ export class OrdersManagementComponent implements OnInit {
 	getOrders(): void {
 		this.subscription = this.orderService.getOrders().subscribe((data: { orders: Order[] }) => {
 			this.ordersPending = data.orders.filter(order => order.invoice_number === '0').reverse();
-			this.ordersDelivered = data.orders.filter(order => order.delivery_number > '0').reverse();
+			this.ordersToTakeAway = data.orders.filter(order => order.payment === 'Magasin').reverse();
+			this.ordersDelivered = data.orders.filter(order => order.payment !== 'Magasin').reverse();
 			this.ordersRefunded = data.orders.filter(order => order.current_state === '7').reverse();
 		});
 	}

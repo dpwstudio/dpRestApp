@@ -14,6 +14,7 @@ export class TableComponent implements OnChanges {
 	currentPage = 1;
 	contentArray = [];
 	showDirectionLinks = true;
+	maxSize = 6;
 
 	constructor() { }
 

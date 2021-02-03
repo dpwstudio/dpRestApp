@@ -1,115 +1,108 @@
-.section-basic {
-  padding: 0 !important;
+.sub-header {
+  background: #1e2145f2;
+  z-index: 2;
+  top: 66px;
+}
 
-  img.path {
-    right: -400px;
-    z-index: -1;
+h1.title {
+  text-align: center;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  line-height: 20px;
+
+  small {
+    font-size: 14px;
   }
+}
 
-  .sub-header {
-    background: #1e2145f2;
-    z-index: 2;
-    top: 66px;
-  }
+.container-fluid {
+  width: 100%;
 
-  h1.title {
-    text-align: center;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-    line-height: 20px;
-
-    small {
-      font-size: 14px;
-    }
-  }
-
-  .container-fluid {
+  .content-scrollable {
     width: 100%;
+    padding-top: 15em;
 
-    .content-scrollable {
-      overflow-x: scroll;
-      width: 100%;
-      padding-top: 15em;
+    .card {
+      z-index: 1;
+      background: linear-gradient(0deg, rgba(241, 108, 0, 1) 0%, rgba(255, 160, 0, 1) 100%);
+      transition: transform ease-in-out 400ms;
+      box-shadow: none;
+      cursor: pointer;
 
-      .card {
-        z-index: 1;
-        background: linear-gradient(0deg, rgba(241, 108, 0, 1) 0%, rgba(255, 160, 0, 1) 100%);
-        transition: transform ease-in-out 400ms;
-        box-shadow: none;
-        cursor: pointer;
+      .card-header {
+        padding: 15px;
+        background: white;
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 5px 50px 0px rgb(0 0 0 / 30%);
 
-        .card-header {
-          padding: 15px;
-          background: white;
-          position: absolute;
-          top: -45px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 120px;
-          background-color: #ffffff;
-          border-radius: 5px;
-          box-shadow: 0px 5px 50px 0px rgb(0 0 0 / 30%);
-
-          h1,
-          h6 {
-            margin: 0;
-            color: #ff6c00;
-          }
-        }
-
-        .card-body {
+        h1,
+        h6 {
           margin: 0;
-          padding-top: 5em;
-          padding-bottom: 0;
+          color: #ff6c00;
+        }
+      }
+
+      .card-body {
+        margin: 0;
+        padding-top: 5em;
+        padding-bottom: 0;
+
+        h6 {
+          font-size: 14px;
+        }
+
+        .product-detail {
+          margin-bottom: 20px;
+
+          h3 {
+            font-size: 18px;
+            margin: 0;
+            color: #fff;
+            font-weight: bold;
+          }
 
           h6 {
-            font-size: 14px;
+            font-size: 11px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
           }
 
-          .product-detail {
-            margin-bottom: 20px;
-
-            h3 {
-              font-size: 18px;
-              margin: 0;
-              color: #fff;
-            }
-
-            h6 {
-              font-size: 11px;
-              margin: 0;
-              color: rgba(255, 255, 255, 0.8);
-            }
-
-            h4 {
-              margin: 0;
-              color: #fff;
-              font-weight: 600;
-              font-size: 23px;
-            }
+          h4 {
+            margin: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 23px;
           }
         }
+      }
 
-        .card-footer {
-          .btn {
-            padding: 10px 20px;
-          }
-
-          .btn-custom {
-            background-color: #08e1ae;
-            background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
-
-            &:hover {
-              background-color: #04bd92 !important;
-              background-image: linear-gradient(315deg, #00d1a0 0%, #5fcc00 74%) !important;
-            }
-          }
+      .card-footer {
+        .btn {
+          padding: 10px 20px;
+          font-weight: bold;
+          font-size: 12px;
         }
 
-        &:hover {
-          transform: scale(1.05);
-          transition: transform ease-in-out 400ms;
+        .btn-custom {
+          background-color: #08e1ae;
+          background-image: linear-gradient(315deg, #08e1ae 0%, #98de5b 74%);
+
+          &:hover {
+            background-color: #04bd92 !important;
+            background-image: linear-gradient(315deg, #00d1a0 0%, #5fcc00 74%) !important;
+          }
         }
+      }
+
+      &:hover {
+        transform: scale(1.05);
+        transition: transform ease-in-out 400ms;
       }
     }
   }

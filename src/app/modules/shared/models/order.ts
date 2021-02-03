@@ -8,4 +8,5 @@ export interface Order {
 	delivery_number: string;
 	current_state: string;
 	id_customer: string;
+	payment: string;
 }

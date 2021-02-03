@@ -52,8 +52,8 @@
     </tbody>
   </table>
 </div>
-<div style="overflow: scroll;">
-  <pagination class="pagination-warning pt-3" [boundaryLinks]="true"
+<div class="d-flex justify-content-center">
+  <pagination class="pagination-warning pt-3" [boundaryLinks]="true" [maxSize]="maxSize"
      [totalItems]="orders?.length" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
     firstText="&laquo;" lastText="&raquo;"></pagination>
 </div>

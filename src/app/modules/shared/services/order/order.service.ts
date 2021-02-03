@@ -20,7 +20,7 @@ export class OrderService {
 
 	getOrders(): any {
 		return this.http.get(`
-			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=5000,2000
+			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full
 		`);
 	}
 }

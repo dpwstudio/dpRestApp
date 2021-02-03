@@ -19,7 +19,13 @@
           </tab>
           <tab>
             <ng-template tabHeading>
-              <i class="tim-icons icon-delivery-fast"> </i> Livrée {{ordersDelivered?.length}}
+              <i class="tim-icons icon-bag-16"> </i> A emporter {{ordersToTakeAway?.length}}
+            </ng-template>
+            <app-table [orders]="ordersToTakeAway"></app-table>
+          </tab>
+          <tab>
+            <ng-template tabHeading>
+              <i class="tim-icons icon-delivery-fast"> </i> En livraison {{ordersDelivered?.length}}
             </ng-template>
             <app-table [orders]="ordersDelivered"></app-table>
           </tab>
