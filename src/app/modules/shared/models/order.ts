@@ -7,4 +7,5 @@ export interface Order {
 	invoice_number: string;
 	delivery_number: string;
 	current_state: string;
+	id_customer: string;
 }

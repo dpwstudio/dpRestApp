@@ -26,14 +26,14 @@
 
 .clock {
   &-container {
-    margin: 0 auto 3em;
+    margin: 0 auto;
     border-radius: 5px;
-    width: 230px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #2b2e5a87;
-    padding: 20px 0 10px;
+    // background: #2b2e5a87;
+    padding: 10px 0 0;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4) !important;
 
     h6 {

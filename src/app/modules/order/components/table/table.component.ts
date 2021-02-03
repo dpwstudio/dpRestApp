@@ -18,7 +18,6 @@ export class TableComponent implements OnChanges {
 	constructor() { }
 
 	ngOnChanges(changes: SimpleChanges): void {
-		console.log(changes);
 		if (changes.orders.currentValue) {
 			this.returnedArray = changes.orders.currentValue.slice(0, 20);
 		}
