@@ -89,3 +89,15 @@
     margin-top: 10px;
   }
 }
+
+@media screen and (max-width: 1024px) {
+  .clock-timer {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .clock-container {
+    display: none;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, interval, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -23,7 +23,9 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	customer: any;
 	customerAddress: any;
 	modalRef: BsModalRef;
-
+	innerWidth: number;
+	itemsPerSlide = 4;
+	singleSlideOffset = true;
 	constructor(
 		private orderService: OrderService,
 		private customerService: CustomerService,
@@ -33,11 +35,25 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.getLastOrders();
 		this.refreshData();
+		this.onResize();
 	}
 
 	ngOnDestroy(): void {
 		this.subscription.unsubscribe();
-		// this.dataSubscription.unsubscribe();
+	}
+
+	@HostListener('window:resize')
+	onResize(): void {
+		this.innerWidth = window.innerWidth;
+		console.log('this.innerWidth', this.innerWidth);
+	}
+
+	hasTabletScreen(): boolean {
+		return this.innerWidth <= 800 && this.innerWidth >= 500;
+	}
+
+	hasMobileScreen(): boolean {
+		return this.innerWidth <= 400;
 	}
 
 	refreshData(): void {
@@ -71,7 +87,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 
 	getCustomer(template, id): void {
 		console.log('id', id);
-		this.dataSubscription = forkJoin({
+		this.subscription = forkJoin({
 			client: this.customerService.getCustomer(id),
 			clientAddress: this.customerService.getCustomerAddress(id)
 		})
