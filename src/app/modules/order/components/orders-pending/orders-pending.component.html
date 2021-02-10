@@ -9,7 +9,7 @@
 <div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6">
   <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 animate__animated animate__slideInRight"
     *ngFor="let order of orders; let isFirst = first;">
-    <div class="card" [class.is-active]="isFirst" *ngIf="orders?.length > 0">
+    <div class="card" [class.is-active]="isFirst">
       <div class="card-header d-flex justify-content-center flex-column text-center">
         <h6 class="mb-2">Commande</h6>
         <h1 style="font-weight: bold;">{{order.id}}</h1>
@@ -57,7 +57,7 @@
       <i class="tim-icons icon-simple-remove"></i>
     </button>
   </div>
-  <div class="modal-body pb-4">
+  <div class="modal-body pb-4" *ngIf="orders?.length > 0">
     <h2 class="text-center text-warning mb-3">{{customer[0].firstname}} {{customer[0].lastname}}</h2>
     <p class="text-left text-muted my-0">
       <a href="mailto:{{customer[0].email}}" class="btn btn-warning btn-icon btn-round mr-2" type="button">
@@ -87,6 +87,9 @@
       {{customerAddress[0].address1}} {{customerAddress[0].address2}} <br>
       {{customerAddress[0].postcode}} - {{customerAddress[0].city | uppercase}}
     </p>
+  </div>
+  <div *ngIf="orders?.length === 0">
+    Aucune commande en attente pour le moment.
   </div>
 </ng-template>
 <alert class="alert-with-icon animate__animated animate__fadeInDown position-fixed" [type]="'success alert-with-icon'"
