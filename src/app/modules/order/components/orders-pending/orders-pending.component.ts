@@ -45,7 +45,6 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	@HostListener('window:resize')
 	onResize(): void {
 		this.innerWidth = window.innerWidth;
-		console.log('this.innerWidth', this.innerWidth);
 	}
 
 	hasTabletScreen(): boolean {
@@ -59,7 +58,12 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	refreshData(): void {
 		this.subscription = this.interval.subscribe(() => {
 			this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
-				const ordersList = data.orders.filter(order => order.invoice_number === '0');
+				let ordersList;
+				if (data && Object.keys(data).length > 0 && data.constructor === Object) {
+					ordersList = data.orders.filter(order => order.invoice_number === '0');
+				} else {
+					ordersList = data;
+				}
 				if (this.tmpTotalOrders < ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
@@ -78,15 +82,18 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 
 	getLastOrders(): void {
 		this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
-			const ordersList = data.orders.filter(order => order.invoice_number === '0');
-			this.orders = ordersList.reverse();
-			console.log('this.orders', this.orders);
+			let ordersList;
+			if (data && Object.keys(data).length > 0 && data.constructor === Object) {
+				ordersList = data.orders.filter(order => order.invoice_number === '0');
+				this.orders = ordersList.reverse();
+			} else {
+				ordersList = data;
+			}
 			this.tmpTotalOrders = ordersList.length;
 		});
 	}
 
 	getCustomer(template, id): void {
-		console.log('id', id);
 		this.subscription = forkJoin({
 			client: this.customerService.getCustomer(id),
 			clientAddress: this.customerService.getCustomerAddress(id)
