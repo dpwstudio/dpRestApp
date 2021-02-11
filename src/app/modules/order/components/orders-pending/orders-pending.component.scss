@@ -1,7 +1,7 @@
 .sub-header {
   background: #1e2145f2;
   z-index: 2;
-  top: 66px;
+  top: 56px;
 
   h1.title {
     text-align: center;
@@ -9,7 +9,7 @@
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     line-height: 20px;
-
+    font-size: 30px;
     small {
       font-size: 14px;
     }
@@ -27,7 +27,7 @@
 
 @media screen and (max-width: 820px) {
   .sub-header {
-    top: 62px;
+    top: 54px;
 
     h1.title {
       margin: 0;
@@ -39,13 +39,20 @@
 @media screen and (max-width: 420px) {
   .sub-header {
     top: 64px;
+    h1.title {
+      margin: 0;
+      font-size: 23px;
+      small {
+        font-size: 12px;
+      }
+    }
   }
 }
 
 
 .container-fluid {
   width: 100%;
-  padding-top: 15em;
+  padding-top: 12em;
   margin-bottom: 2em;
   overflow-x: scroll;
 

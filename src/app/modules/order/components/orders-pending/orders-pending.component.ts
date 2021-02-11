@@ -60,13 +60,11 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 			this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 				let ordersList;
 				if (data && Object.keys(data).length > 0 && data.constructor === Object) {
-					ordersList = data.orders.filter(order => order.current_state === '3' || order.current_state === '29');
-					console.log('ordersList', ordersList);
+					ordersList = data.orders.filter(order => order.current_state === '3'
+						|| order.current_state === '29' || order.current_state === '2' || order.current_state === '10');
 				} else {
 					ordersList = data;
 				}
-				console.log('ordersList.length', ordersList.length);
-				console.log('this.tmpTotalOrders', this.tmpTotalOrders);
 				if (this.tmpTotalOrders < ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
@@ -87,8 +85,8 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 		this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 			let ordersList;
 			if (data && Object.keys(data).length > 0 && data.constructor === Object) {
-				console.log(data.orders);
-				ordersList = data.orders.filter(order => order.current_state === '3' || order.current_state === '29');
+				ordersList = data.orders.filter(order => order.current_state === '3'
+					|| order.current_state === '29' || order.current_state === '2' || order.current_state === '10');
 				this.orders = ordersList.reverse();
 			} else {
 				ordersList = data;

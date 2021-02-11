@@ -1,12 +1,12 @@
 <app-loading [isLoading]="isOrdersLoading()"></app-loading>
-<div class="sub-header d-flex justify-content-center align-items-center pt-3 pb-3 position-fixed  w-100">
+<div class="sub-header d-flex justify-content-center align-items-center pt-2 pb-2 position-fixed  w-100">
   <app-date-nclock></app-date-nclock>
   <h1 class="title animate__animated animate__fadeInDown text-white">{{orders?.length > 0 ? orders?.length : 'Aucune'}}
     commande{{orders?.length > 1 ? 's' : ''}} en attente <br>
     <small>à emporter ou en livraison</small>
   </h1>
 </div>
-<div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6">
+<div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6 && !hasMobileScreen()">
   <div class="col-xl-{{orders?.length <= 4 ? '3' : '2'}} col-lg-3 col-md-4 col-sm-6 animate__animated animate__slideInRight"
     *ngFor="let order of orders; let isFirst = first;">
     <div class="card" [class.is-active]="isFirst">
