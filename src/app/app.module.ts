@@ -1,7 +1,7 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { OrderModule } from './modules/order/order.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { HeadersInterceptor } from './modules/shared/interceptors/headers/headers.interceptor';
 
 @NgModule({
 	declarations: [
@@ -39,6 +40,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 	],
 	providers: [
 		{ provide: LOCALE_ID, useValue: 'fr-FR' },
+		// { provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true },
 	],
 	bootstrap: [AppComponent]
 })
