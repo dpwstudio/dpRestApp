@@ -9,12 +9,12 @@ import { Order } from '../../models/order';
 	providedIn: 'root'
 })
 export class OrderService {
-	lastOrder = 6260;
+	lastOrder = 6367;
 	constructor(private http: HttpClient) { }
 
 	getLastOrders(): any {
 		return this.http.get(`
-			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=${this.lastOrder},100
+			${environment.apiUrl}/orders?ws_key=${environment.keyWSNemShop}&output_format=JSON&display=full&limit=${this.lastOrder},200
 		`);
 	}
 
