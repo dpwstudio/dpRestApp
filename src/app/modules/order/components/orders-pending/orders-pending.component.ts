@@ -29,6 +29,8 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	itemsPerSlide = 4;
 	singleSlideOffset = true;
 	siteUrl: string;
+	showAnimate = '';
+
 	constructor(
 		private orderService: OrderService,
 		private customerService: CustomerService,
@@ -71,6 +73,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 				} else {
 					ordersList = data;
 				}
+				// Compare les taille des array pour l'affichage des notifications et la réactualisation des données
 				if (this.tmpTotalOrders < ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
@@ -79,12 +82,19 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
 					this.showInfo = true;
+					this.showAnimate = 'animate__animated animate__slideInRight';
 				} else {
+					this.orders = ordersList.reverse();
 					this.showAlert = false;
 					this.showInfo = false;
 				}
 			});
 		});
+	}
+
+	isNewOrder(order): boolean {
+		return order.current_state === orderState.PAIEMENT_ACCEPTE
+			|| order.current_state === orderState.PAIEMENT_AU_RESTAURANT;
 	}
 
 	getLastOrders(): void {

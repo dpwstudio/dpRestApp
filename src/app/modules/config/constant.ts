@@ -1,8 +1,8 @@
 export const orderState = {
 	PAIEMENT_ACCEPTE: '2',
 	EN_COURS: '3',
-	PAIEMENT_AU_RESTAURANT: '10',
-	EN_ATTENTE_DE_VIREMENT: '29'
+	EN_ATTENTE_DE_VIREMENT: '10',
+	PAIEMENT_AU_RESTAURANT: '29'
 };
 
 export const orderType = {

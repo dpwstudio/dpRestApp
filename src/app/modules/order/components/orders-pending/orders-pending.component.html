@@ -7,16 +7,17 @@
   </h1>
 </div>
 <div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6 && !hasMobileScreen()">
-  <div class="col-xl-{{orders?.length <= 4 ? '3' : '2'}} col-lg-3 col-md-4 col-sm-6 animate__animated animate__slideInRight"
+  <div class="col-xl-{{orders?.length <= 4 ? '3' : '2'}} col-lg-3 col-md-4 col-sm-6"
     *ngFor="let order of orders; let isFirst = first;">
-    <div class="card" [class.is-active]="isFirst" [class.enCours]="isInProgress(order)">
-      <div class="card-header d-flex justify-content-center flex-column text-center">
+    <div class="card {{isNewOrder(order) ? 'animate__animated animate__pulse animate__infinite' : ''}}" [class.is-active]="isFirst" [class.enCours]="isInProgress(order)">
+      <div class="card-header d-flex justify-content-center flex-column text-center" [class.enCours]="isInProgress(order)">
+        <i class="fas fa-hourglass" *ngIf="isInProgress(order)"></i>
         <h6 class="mb-2">Commande</h6>
         <h1 style="font-weight: bold;">{{order.id}}</h1>
       </div>
       <div class="card-body text-left">
         <h6 class="text-center mb-0 text-white">
-          <span class="badge badge-info" style="font-size: 13px; padding: 5px 10px;">{{orderType(order.payment)}}</span>
+          <span class="badge badge-default" style="font-size: 12px; padding: 5px 10px;">{{orderType(order.payment)}}</span>
         </h6>
         <h6 class="text-center mb-4">{{order.date_add | date: 'dd/MM/YYYY HH:mm'}}</h6>
         <div class="product-detail d-flex align-items-center justify-content-between"
@@ -38,9 +39,9 @@
           (click)="getCustomer(template, order.id_customer)" style="width: 100%;">
           Clients
         </button>
-        <a class="btn btn-custom" target="_blank" style="width: 100%;"
+        <a class="btn btn-info" target="_blank" style="width: 100%;"
           href="{{siteUrl}}/admin600kqh971/index.php?controller=AdminOrders&id_order={{order.id}}&vieworder">
-          Traité
+          Gérer
         </a>
       </div>
     </div>
