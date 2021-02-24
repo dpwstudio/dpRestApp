@@ -9,7 +9,7 @@
 <div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6 && !hasMobileScreen()">
   <div class="col-xl-{{orders?.length <= 4 ? '3' : '2'}} col-lg-3 col-md-4 col-sm-6 animate__animated animate__slideInRight"
     *ngFor="let order of orders; let isFirst = first;">
-    <div class="card" [class.is-active]="isFirst">
+    <div class="card" [class.is-active]="isFirst" [class.enCours]="isInProgress(order)">
       <div class="card-header d-flex justify-content-center flex-column text-center">
         <h6 class="mb-2">Commande</h6>
         <h1 style="font-weight: bold;">{{order.id}}</h1>
@@ -39,7 +39,7 @@
           Clients
         </button>
         <a class="btn btn-custom" target="_blank" style="width: 100%;"
-          href="https://nem-shop.fr/admin600kqh971/index.php?controller=AdminOrders&id_order={{order.id}}&vieworder">
+          href="{{siteUrl}}/admin600kqh971/index.php?controller=AdminOrders&id_order={{order.id}}&vieworder">
           Traité
         </a>
       </div>

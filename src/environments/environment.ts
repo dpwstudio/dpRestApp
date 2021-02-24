@@ -5,7 +5,8 @@
 export const environment = {
 	production: false,
 	apiUrl: 'http://localhost:8888/nemshop/api',
-	keyWSNemShop: '2VZERFB5JASP2SD7GQUBBBMCAMA8SXSV'
+	keyWSNemShop: '2VZERFB5JASP2SD7GQUBBBMCAMA8SXSV',
+	siteUrl: 'http://localhost:8888/nemshop'
 };
 
 /*

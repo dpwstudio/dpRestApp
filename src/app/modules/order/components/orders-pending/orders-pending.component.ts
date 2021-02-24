@@ -2,9 +2,11 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, Vi
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, interval, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { orderState, orderType } from 'src/app/modules/config/constant';
 import { Order } from 'src/app/modules/shared/models/order';
 import { CustomerService } from 'src/app/modules/shared/services/customer/customer.service';
 import { OrderService } from 'src/app/modules/shared/services/order/order.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
 	selector: 'app-orders-pending',
@@ -26,6 +28,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	innerWidth: number;
 	itemsPerSlide = 4;
 	singleSlideOffset = true;
+	siteUrl: string;
 	constructor(
 		private orderService: OrderService,
 		private customerService: CustomerService,
@@ -33,6 +36,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	) { }
 
 	ngOnInit(): void {
+		this.siteUrl = environment.siteUrl;
 		this.getLastOrders();
 		this.refreshData();
 		this.onResize();
@@ -60,8 +64,10 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 			this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 				let ordersList;
 				if (data && Object.keys(data).length > 0 && data.constructor === Object) {
-					ordersList = data.orders.filter(order => order.current_state === '3'
-						|| order.current_state === '29' || order.current_state === '2' || order.current_state === '10');
+					ordersList = data.orders.filter(order => order.current_state === orderState.EN_COURS
+						|| order.current_state === orderState.EN_ATTENTE_DE_VIREMENT
+						|| order.current_state === orderState.PAIEMENT_ACCEPTE
+						|| order.current_state === orderState.PAIEMENT_AU_RESTAURANT);
 				} else {
 					ordersList = data;
 				}
@@ -85,8 +91,11 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 		this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 			let ordersList;
 			if (data && Object.keys(data).length > 0 && data.constructor === Object) {
-				ordersList = data.orders.filter(order => order.current_state === '3'
-					|| order.current_state === '29' || order.current_state === '2' || order.current_state === '10');
+				ordersList = data.orders.filter(order => order.current_state === orderState.EN_COURS
+					|| order.current_state === orderState.EN_ATTENTE_DE_VIREMENT
+					|| order.current_state === orderState.PAIEMENT_ACCEPTE
+					|| order.current_state === orderState.PAIEMENT_AU_RESTAURANT
+				);
 				this.orders = ordersList.reverse();
 			} else {
 				ordersList = data;
@@ -112,10 +121,14 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	}
 
 	orderType(type): string {
-		if (type === 'Magasin') {
-			return 'A emporter';
+		if (type === orderType.MAGASIN) {
+			return orderType.A_EMPORTER;
 		} else {
-			return 'En livraison';
+			return orderType.EN_LIVRAISON;
 		}
+	}
+
+	isInProgress(order): boolean {
+		return order.current_state === orderState.EN_COURS;
 	}
 }
