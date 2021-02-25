@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:preprod": "ng build --base-href /nemshop/",
     "build:prod": "ng build --prod --base-href /app/",
     "test": "ng test",
     "lint": "ng lint",

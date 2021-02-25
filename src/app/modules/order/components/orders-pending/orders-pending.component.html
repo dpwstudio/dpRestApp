@@ -5,21 +5,27 @@
     commande{{orders?.length > 1 ? 's' : ''}} en attente <br>
     <small>à emporter ou en livraison</small>
   </h1>
+  <button class="enableSound btn btn-{{play ? 'info' : 'default'}} btn-icon btn-round" #myButton (click)="togglePlayAudio()">
+    <i class="fas fa-volume-{{play ? 'up' : 'mute'}}"></i>
+  </button>
 </div>
 <div class="container-fluid d-flex" [class.justify-content-center]="orders?.length < 6 && !hasMobileScreen()">
   <div class="col-xl-{{orders?.length <= 4 ? '3' : '2'}} col-lg-3 col-md-4 col-sm-6"
     *ngFor="let order of orders; let isFirst = first;">
-    <div class="card {{isNewOrder(order) ? 'animate__animated animate__pulse animate__infinite' : ''}}" [class.is-active]="isFirst" [class.enCours]="isInProgress(order)">
-      <div class="card-header d-flex justify-content-center flex-column text-center" [class.enCours]="isInProgress(order)">
+    <div class="card {{isNewOrder(order) ? 'animate__animated animate__pulse animate__infinite' : ''}}"
+      [class.is-active]="isFirst" [class.enCours]="isInProgress(order)">
+      <div class="card-header d-flex justify-content-center flex-column text-center"
+        [class.enCours]="isInProgress(order)">
         <i class="fas fa-hourglass" *ngIf="isInProgress(order)"></i>
         <h6 class="mb-2">Commande</h6>
         <h1 style="font-weight: bold;">{{order.id}}</h1>
       </div>
       <div class="card-body text-left">
         <h6 class="text-center mb-0 text-white">
-          <span class="badge badge-default" style="font-size: 12px; padding: 5px 10px;">{{orderType(order.payment)}}</span>
+          <span class="badge badge-default"
+            style="font-size: 12px; padding: 5px 10px;">{{orderType(order.payment)}}</span>
         </h6>
-        <h6 class="text-center mb-4">{{order.date_add | date: 'dd/MM/YYYY HH:mm'}}</h6>
+        <h6 class="text-center mb-4">{{parseDate(order.date_add) | date: 'dd/MM/YYYY HH:mm'}}</h6>
         <div class="product-detail d-flex align-items-center justify-content-between"
           *ngFor="let detail of order.associations.order_rows">
           <div class="d-flex flex-column" style="width: 85%;">
@@ -100,9 +106,6 @@
     <b> Nouvelle commande ! </b> <br> Une nouvelle commande vient d'arriver.
   </span>
 </alert>
-<audio autoplay *ngIf="showAlert || showInfo">
-  <source src="assets/audio/message.wav" type="audio/wav">
-</audio>
 <alert class="alert-with-icon animate__animated animate__fadeInDown position-fixed" [type]="'info alert-with-icon'"
   [dismissible]="true" *ngIf="showInfo">
   <span class="tim-icons icon-refresh-02" data-notify="icon"> </span>

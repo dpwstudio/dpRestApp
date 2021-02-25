@@ -1,12 +1,12 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { forkJoin, interval, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { orderState, orderType } from 'src/app/modules/config/constant';
 import { Order } from 'src/app/modules/shared/models/order';
 import { CustomerService } from 'src/app/modules/shared/services/customer/customer.service';
 import { OrderService } from 'src/app/modules/shared/services/order/order.service';
 import { environment } from 'src/environments/environment';
+import * as moment from 'moment';
 
 @Component({
 	selector: 'app-orders-pending',
@@ -29,7 +29,8 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	itemsPerSlide = 4;
 	singleSlideOffset = true;
 	siteUrl: string;
-	showAnimate = '';
+	audio: any;
+	play = false;
 
 	constructor(
 		private orderService: OrderService,
@@ -53,16 +54,31 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 		this.innerWidth = window.innerWidth;
 	}
 
+	togglePlayAudio(): void {
+		this.play = !this.play;
+		this.audio = new Audio();
+		this.audio.src = 'assets/audio/message.wav';
+		if (this.play) {
+			this.audio.play();
+		} else {
+			this.audio.pause();
+		}
+	}
+
+	parseDate(date): any {
+		return moment(date);
+	}
+
 	hasTabletScreen(): boolean {
 		return this.innerWidth <= 800 && this.innerWidth >= 500;
 	}
 
 	hasMobileScreen(): boolean {
-		return this.innerWidth <= 400;
+		return this.innerWidth <= 500;
 	}
 
 	refreshData(): void {
-		this.subscription = this.interval.subscribe(() => {
+		this.interval.subscribe(() => {
 			this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 				let ordersList;
 				if (data && Object.keys(data).length > 0 && data.constructor === Object) {
@@ -74,17 +90,23 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 					ordersList = data;
 				}
 				// Compare les taille des array pour l'affichage des notifications et la réactualisation des données
+				const array1 = JSON.stringify(ordersList).length;
+				const array2 = JSON.stringify(this.orders)?.length;
 				if (this.tmpTotalOrders < ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
 					this.showAlert = true;
+					this.togglePlayAudio();
 				} else if (this.tmpTotalOrders > ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
 					this.showInfo = true;
-					this.showAnimate = 'animate__animated animate__slideInRight';
-				} else {
+					this.togglePlayAudio();
+				} else if (array1 > array2) {
 					this.orders = ordersList.reverse();
+					this.showInfo = true;
+					this.togglePlayAudio();
+				} else {
 					this.showAlert = false;
 					this.showInfo = false;
 				}
@@ -98,7 +120,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	}
 
 	getLastOrders(): void {
-		this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
+		this.dataSubscription = this.orderService.getLastOrders().subscribe((data: { orders: Order[] }) => {
 			let ordersList;
 			if (data && Object.keys(data).length > 0 && data.constructor === Object) {
 				ordersList = data.orders.filter(order => order.current_state === orderState.EN_COURS

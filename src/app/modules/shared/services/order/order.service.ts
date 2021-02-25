@@ -9,7 +9,7 @@ import { Order } from '../../models/order';
 	providedIn: 'root'
 })
 export class OrderService {
-	lastOrder = 6392;
+	lastOrder = 6400;
 	constructor(private http: HttpClient) { }
 
 	getLastOrders(): any {
