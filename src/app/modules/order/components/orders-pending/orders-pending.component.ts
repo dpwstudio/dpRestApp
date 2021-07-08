@@ -43,10 +43,37 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 		this.getLastOrders();
 		this.refreshData();
 		this.onResize();
+		// this.notifyMe('Les notifications sont activées.');
+	}
+
+	notifyMe(message): void {
+		// Vérifions si le navigateur prend en charge les notifications
+		if (!('Notification' in window)) {
+			alert('Ce navigateur ne prend pas en charge la notification de bureau');
+		}
+
+		// Vérifions si les autorisations de notification ont déjà été accordées
+		else if (Notification.permission === 'granted') {
+			// Si tout va bien, créons une notification
+			const notification = new Notification(message);
+		}
+
+		// Sinon, nous devons demander la permission à l'utilisateur
+		else if (Notification.permission !== 'denied') {
+			Notification.requestPermission().then((permission) => {
+				// Si l'utilisateur accepte, créons une notification
+				if (permission === 'granted') {
+					const notification = new Notification(message);
+				}
+			});
+		}
+
+		// Enfin, si l'utilisateur a refusé les notifications, et que vous
+		// voulez être respectueux, il n'est plus nécessaire de les déranger.
 	}
 
 	ngOnDestroy(): void {
-		this.subscription.unsubscribe();
+		this.dataSubscription.unsubscribe();
 	}
 
 	@HostListener('window:resize')
@@ -57,7 +84,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	togglePlayAudio(): void {
 		this.play = !this.play;
 		this.audio = new Audio();
-		this.audio.src = 'assets/audio/message.wav';
+		this.audio.src = 'assets/audio/message.mp3';
 		if (this.play) {
 			this.audio.play();
 		} else {
@@ -95,16 +122,19 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 				if (this.tmpTotalOrders < ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
+					// this.notifyMe('Une nouvelle commande vient d\'arriver.');
 					this.showAlert = true;
 					this.togglePlayAudio();
 				} else if (this.tmpTotalOrders > ordersList.length) {
 					this.tmpTotalOrders = ordersList.length;
 					this.orders = ordersList.reverse();
 					this.showInfo = true;
+					// this.notifyMe('Les commandes viennent d\'être réactualisées.');
 					this.togglePlayAudio();
 				} else if (array1 > array2) {
 					this.orders = ordersList.reverse();
 					this.showInfo = true;
+					// this.notifyMe('Les commandes viennent d\'être réactualisées.');
 					this.togglePlayAudio();
 				} else {
 					this.showAlert = false;
@@ -137,7 +167,7 @@ export class OrdersPendingComponent implements OnInit, OnDestroy {
 	}
 
 	getCustomer(template, id): void {
-		this.subscription = forkJoin({
+		forkJoin({
 			client: this.customerService.getCustomer(id),
 			clientAddress: this.customerService.getCustomerAddress(id)
 		})
